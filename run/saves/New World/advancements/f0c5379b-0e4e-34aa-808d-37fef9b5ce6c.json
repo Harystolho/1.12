@@ -1,0 +1,20 @@
+{
+  "minecraft:adventure/root": {
+    "criteria": {
+      "killed_something": "2017-11-06 20:37:23 -0200"
+    },
+    "done": true
+  },
+  "minecraft:adventure/shoot_arrow": {
+    "criteria": {
+      "shot_arrow": "2017-11-06 20:37:23 -0200"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "plains": "2017-11-06 20:37:01 -0200"
+    },
+    "done": false
+  }
+}

@@ -1,0 +1,6 @@
+{
+    "variants": 
+    {
+        "normal": { "model": "uberminer:block_copper" }
+    }
+}

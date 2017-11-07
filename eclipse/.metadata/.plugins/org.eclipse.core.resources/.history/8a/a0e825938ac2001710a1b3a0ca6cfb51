@@ -1,0 +1,9 @@
+package harystolho.uberminer.init;
+
+import java.util.ArrayList;
+
+public class BlockInit {
+
+	public static final List<Blocks> BLOCKS = new ArrayList<Block>()
+	
+}

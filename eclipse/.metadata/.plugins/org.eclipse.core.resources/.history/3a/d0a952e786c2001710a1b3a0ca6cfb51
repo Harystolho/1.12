@@ -1,0 +1,7 @@
+package harystolho.uberminer.objects;
+
+import net.minecraft.item.Item;
+
+public class ItemUberTool extends Item {
+
+}

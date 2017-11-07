@@ -1,0 +1,19 @@
+package harystolho.uberminer.objects;
+
+import harystolho.uberminer.utils.IHasModel;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+
+public class ItemUberTool extends Item implements IHasModel{
+
+	public ItemUberTool(String name) {
+		setUnlocalizedName(name);
+		setRegistryName(name);
+		//setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	}
+
+	public void registerModels() {
+		
+	}
+	
+}

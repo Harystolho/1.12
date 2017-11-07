@@ -1,0 +1,21 @@
+package harystolho.uberminer;
+
+import harystolho.uberminer.proxy.CommonProxy;
+import harystolho.uberminer.utils.Reference;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+
+@Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.NAME)
+public class Main {
+
+	@Instance
+	public static Main instance;
+	
+	@SidedProxy(clientSide = Reference.CLIENT, serverSide = Reference.COMMON)
+	public static CommonProxy proxy;
+	
+	@EventHandler
+	public static void pre
+	
+}

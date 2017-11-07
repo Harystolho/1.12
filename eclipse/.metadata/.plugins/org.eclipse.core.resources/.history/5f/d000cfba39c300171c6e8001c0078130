@@ -1,0 +1,12 @@
+package harystolho.uberminer;
+
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
+
+public class UberMinerTab extends CreativeTabs {
+
+	public UberMinerTab(String name) { super("UberMiner");
+		
+	}
+
+}

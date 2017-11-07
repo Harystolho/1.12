@@ -1,0 +1,6 @@
+package harystolho.uberminer.utils;
+
+@Mod(modid = )
+public class Main {
+
+}

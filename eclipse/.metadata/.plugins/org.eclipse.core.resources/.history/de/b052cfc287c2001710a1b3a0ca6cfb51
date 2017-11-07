@@ -1,0 +1,9 @@
+package harystolho.uberminer.utils.handlers;
+
+import net.minecraftforge.event.RegistryEvent;
+
+public class RegistryHandlers {
+
+	public static void onItemRegister(RegistryEvent.Register<Item> event)
+	
+}

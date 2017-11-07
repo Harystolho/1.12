@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "uberminer:blocks/block_copper"
+    }
+}

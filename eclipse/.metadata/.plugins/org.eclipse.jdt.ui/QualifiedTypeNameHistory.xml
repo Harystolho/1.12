@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="net.minecraftforge.fml.common.Mod"/>
+<fullyQualifiedTypeName name="net.minecraftforge.fml.common.Mod.Instance"/>
+<fullyQualifiedTypeName name="net.minecraftforge.fml.common.SidedProxy"/>
+<fullyQualifiedTypeName name="harystolho.uberminer.proxy.CommonProxy"/>
+<fullyQualifiedTypeName name="harystolho.uberminer.utils.Reference"/>
+<fullyQualifiedTypeName name="net.minecraftforge.fml.common.Mod.EventHandler"/>
+<fullyQualifiedTypeName name="net.minecraftforge.fml.common.event.FMLPreInitializationEvent"/>
+<fullyQualifiedTypeName name="net.minecraftforge.fml.common.event.FMLInitializationEvent"/>
+<fullyQualifiedTypeName name="net.minecraftforge.fml.common.event.FMLPostInitializationEvent"/>
+<fullyQualifiedTypeName name="java.awt.List"/>
+<fullyQualifiedTypeName name="harystolho.uberminer.objects.ItemUberTool"/>
+<fullyQualifiedTypeName name="net.minecraft.util.text.event.ClickEvent"/>
+<fullyQualifiedTypeName name="harystolho.uberminer.proxy.ClientProxy"/>
+<fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="akka.Main"/>
+<fullyQualifiedTypeName name="net.minecraftforge.event.RegistryEvent"/>
+<fullyQualifiedTypeName name="net.minecraftforge.fml.common.Mod.EventBusSubscriber"/>
+<fullyQualifiedTypeName name="net.minecraftforge.client.event.ModelRegistryEvent"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="net.minecraft.init.Blocks"/>
+<fullyQualifiedTypeName name="harystolho.uberminer.objects.blocks.BlockUberTable"/>
+<fullyQualifiedTypeName name="net.minecraft.block.material.Material"/>
+<fullyQualifiedTypeName name="net.minecraft.item.ItemBanner"/>
+<fullyQualifiedTypeName name="scala.tools.nsc.backend.icode.Opcodes.opcodes..IS_INSTANCE"/>
+<fullyQualifiedTypeName name="net.minecraft.block.Block"/>
+<fullyQualifiedTypeName name="net.minecraftforge.fml.common.eventhandler.SubscribeEvent"/>
+<fullyQualifiedTypeName name="net.minecraftforge.event.RegistryEvent.Register"/>
+<fullyQualifiedTypeName name="net.minecraft.creativetab.CreativeTabs"/>
+<fullyQualifiedTypeName name="harystolho.uberminer.UberMinerTab"/>
+<fullyQualifiedTypeName name="net.minecraft.item.ItemStack"/>
+<fullyQualifiedTypeName name="harystolho.uberminer.init.BlockInit"/>
+<fullyQualifiedTypeName name="net.minecraft.item.ItemTool"/>
+<fullyQualifiedTypeName name="net.minecraft.item.ItemBow"/>
+<fullyQualifiedTypeName name="harystolho.uberminer.utils.IHasModel"/>
+<fullyQualifiedTypeName name="harystolho.uberminer.Main"/>
+<fullyQualifiedTypeName name="harystolho.uberminer.init.ItemInit"/>
+<fullyQualifiedTypeName name="net.minecraft.item.Item"/>
+<fullyQualifiedTypeName name="harystolho.uberminer.objects.tools.BowUber"/>
+<fullyQualifiedTypeName name="net.minecraft.entity.EntityLivingBase"/>
+</qualifiedTypeNameHistroy>

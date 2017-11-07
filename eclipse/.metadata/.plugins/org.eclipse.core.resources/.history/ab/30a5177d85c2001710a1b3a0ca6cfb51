@@ -1,0 +1,11 @@
+package harystolho.uberminer;
+
+import harystolho.uberminer.utils.Reference;
+import net.minecraftforge.fml.common.Mod;
+
+@Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.NAME)
+public class Main {
+
+	
+	
+}
