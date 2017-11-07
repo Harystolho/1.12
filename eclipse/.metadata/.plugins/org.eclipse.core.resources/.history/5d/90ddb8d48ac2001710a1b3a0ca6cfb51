@@ -1,7 +1,0 @@
-package harystolho.uberminer.init;
-
-import net.minecraft.block.Block;
-
-public class BlockUberTable extends Block {
-
-}

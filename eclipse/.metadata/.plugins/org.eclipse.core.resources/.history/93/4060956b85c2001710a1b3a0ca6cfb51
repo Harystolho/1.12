@@ -1,6 +1,0 @@
-package harystolho.uberminer;
-
-@Mod(modid = )
-public class Main {
-
-}

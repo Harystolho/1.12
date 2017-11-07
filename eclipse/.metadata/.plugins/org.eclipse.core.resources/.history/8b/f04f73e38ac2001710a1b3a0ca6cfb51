@@ -1,8 +1,0 @@
-package harystolho.uberminer.objects.blocks;
-
-import harystolho.uberminer.utils.IHasModel;
-import net.minecraft.block.Block;
-
-public class BlockUberTable extends Block implements IHasModel{
-
-}

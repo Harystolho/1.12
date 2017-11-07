@@ -1,7 +1,0 @@
-package harystolho.uberminer.utils;
-
-public class Reference {
-
-	public static void String MODID = "uberminer";
-	
-}
