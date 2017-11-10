@@ -2,13 +2,17 @@ package harystolho.uberminer.utils.handlers;
 
 import harystolho.uberminer.init.BlockInit;
 import harystolho.uberminer.init.ItemInit;
+import harystolho.uberminer.tile.TileEntityUberTable;
 import harystolho.uberminer.utils.IHasModel;
+import harystolho.uberminer.utils.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @EventBusSubscriber
 public class RegistryHandlers {
@@ -21,6 +25,8 @@ public class RegistryHandlers {
 	@SubscribeEvent
 	public static void onBlockRegister(RegistryEvent.Register<Block> event) {
 		event.getRegistry().registerAll(BlockInit.BLOCKS.toArray(new Block[0]));
+		
+		GameRegistry.registerTileEntity(TileEntityUberTable.class, Reference.MODID + "_ubercontainer");
 	}
 	
 	@SubscribeEvent

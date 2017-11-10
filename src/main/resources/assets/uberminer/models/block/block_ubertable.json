@@ -1,6 +1,8 @@
 {
-    "parent": "block/cube_all",
+    "parent": "block/orientable",
     "textures": {
-        "all": "uberminer:blocks/block_ubertable"
+        "top": "uberminer:blocks/block_ubertable_top",
+        "side": "uberminer:blocks/block_ubertable",
+        "front": "uberminer:blocks/block_ubertable"       
     }
 }

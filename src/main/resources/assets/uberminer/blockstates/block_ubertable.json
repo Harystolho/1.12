@@ -1,6 +1,11 @@
 {
-    "variants": 
-    {
-        "normal": { "model": "uberminer:block_ubertable" }
-    }
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube_all",
+    textures: { "all":"uberminer:blocks/block_ubertable"}
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
 }

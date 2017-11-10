@@ -1,6 +1,10 @@
 package harystolho.uberminer.proxy;
 
+import harystolho.uberminer.Main;
+import harystolho.uberminer.utils.GuiProxy;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class CommonProxy {
 
