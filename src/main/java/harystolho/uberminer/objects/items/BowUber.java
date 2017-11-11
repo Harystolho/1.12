@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import harystolho.uberminer.Main;
 import harystolho.uberminer.init.ItemInit;
 import harystolho.uberminer.utils.IHasModel;
+import ibxm.Player;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -20,6 +21,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BowUber extends Item implements IHasModel{
+	
+	int duration;
 	
 	public BowUber(String name) {
 		setUnlocalizedName(name);
@@ -37,7 +40,6 @@ public class BowUber extends Item implements IHasModel{
                 }
                 else
                 {
-                	//System.out.println((float)(stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F);
                     return entityIn.getActiveItemStack().getItem() != ItemInit.TOOL_UBER ? 0.0F : (float)(stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
                 }
             }
@@ -51,6 +53,8 @@ public class BowUber extends Item implements IHasModel{
             }
         });
 		
+		
+		
 		ItemInit.ITEMS.add(this);
 		
 	}
@@ -58,6 +62,7 @@ public class BowUber extends Item implements IHasModel{
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
+		UpdateNBT();
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         boolean flag = true;
 
@@ -80,7 +85,21 @@ public class BowUber extends Item implements IHasModel{
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack)
     {
-        return 400;
+        return getDuratio();
     }
+	
+	public int getDuratio() {
+		
+		return duration;
+	}
+	
+	public void UpdateNBT() {
+		
+	}
+	
+	public void setNBT(String modifier) {
+		ItemStack item = 
+		
+	}
 	
 }

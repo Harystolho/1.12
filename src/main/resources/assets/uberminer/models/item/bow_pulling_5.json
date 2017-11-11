@@ -1,0 +1,6 @@
+{
+    "parent": "item/bow",
+    "textures": {
+        "layer0": "uberminer:items/bow_pulling_5"
+    }
+}
