@@ -2,6 +2,8 @@ package harystolho.uberminer.objects.blocks;
 
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import harystolho.uberminer.Main;
 import harystolho.uberminer.init.BlockInit;
 import harystolho.uberminer.init.ItemInit;
@@ -26,7 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.SidedProxy;
 
-public class BlockUberTable extends Block implements IHasModel, ITileEntityProvider {
+public class BlockUberTable extends Block implements IHasModel{
 
 	public BlockUberTable(String name) {
 		super(Material.IRON);
@@ -58,9 +60,11 @@ public class BlockUberTable extends Block implements IHasModel, ITileEntityProvi
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityUberTable();
-	}
+	@Nullable
+    public TileEntity createTileEntity(World world, IBlockState state)
+    {
+       return new TileEntityUberTable();
+    }
 
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
@@ -92,7 +96,7 @@ public class BlockUberTable extends Block implements IHasModel, ITileEntityProvi
 
 				worldIn.updateComparatorOutputLevel(pos, state.getBlock());
 			} else {
-				super.breakBlock(worldIn, pos, state);	
+				super.getDrops(worldIn, pos, state, 0);
 			}
 		}
 	}
