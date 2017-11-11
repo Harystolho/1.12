@@ -5,13 +5,12 @@ import javax.annotation.Nullable;
 import harystolho.uberminer.Main;
 import harystolho.uberminer.init.ItemInit;
 import harystolho.uberminer.utils.IHasModel;
-import ibxm.Player;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -22,7 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BowUber extends Item implements IHasModel{
 	
-	int duration;
+	int durability;
 	
 	public BowUber(String name) {
 		setUnlocalizedName(name);
@@ -85,20 +84,15 @@ public class BowUber extends Item implements IHasModel{
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack)
     {
-        return getDuratio();
+        return 400;
     }
 	
-	public int getDuratio() {
+	public int getDurability() {
 		
-		return duration;
+		return durability;
 	}
 	
 	public void UpdateNBT() {
-		
-	}
-	
-	public void setNBT(String modifier) {
-		ItemStack item = 
 		
 	}
 	
