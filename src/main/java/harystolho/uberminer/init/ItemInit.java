@@ -12,7 +12,7 @@ public class ItemInit {
 	
 	
 	public static final Item TOOL_UBER = new BowUber("bow_uber");   
-	
+		
 	//public static final Item UberModifier = new ItemUberTool("tool_uber");
 	
 }

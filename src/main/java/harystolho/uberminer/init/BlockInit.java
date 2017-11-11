@@ -11,14 +11,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockInit {
-
-	@ObjectHolder("ubertable:containerubertable")
-	public static BlockUberTable containerubertable;
-	
-	@SideOnly(Side.CLIENT)
-	public static void initModels() {
-		containerubertable.initModel();
-	}
 	
 	public static final List<Block> BLOCKS = new ArrayList<Block>();
 	

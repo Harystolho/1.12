@@ -11,6 +11,7 @@ public class ItemUberTool extends Item implements IHasModel{
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setMaxStackSize(1);
+		setMaxDamage(0);
 		setCreativeTab(Main.UBERMINER);
 		
 		ItemInit.ITEMS.add(this);
@@ -19,5 +20,6 @@ public class ItemUberTool extends Item implements IHasModel{
 	public void registerModels() {
 		Main.proxy.registerItemRenderer(this, 0, "inventory");
 	}
+
 
 }

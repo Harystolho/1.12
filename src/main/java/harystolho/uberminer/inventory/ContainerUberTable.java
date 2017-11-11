@@ -4,7 +4,9 @@ import javax.annotation.Nullable;
 
 import harystolho.uberminer.tile.TileEntityUberTable;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -12,83 +14,122 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerUberTable extends Container
-{
-	 private TileEntityUberTable te;
-	 
-	 public ContainerUberTable(IInventory playerInventory, TileEntityUberTable te) {
-	        this.te = te;
+public class ContainerUberTable extends Container {
+	private TileEntityUberTable te;
 
-	        // This container references items out of our own inventory (the 9 slots we hold ourselves)
-	        // as well as the slots from the player inventory so that the user can transfer items between
-	        // both inventories. The two calls below make sure that slots are defined for both inventories.
-	        addOwnSlots();
-	        addPlayerSlots(playerInventory);
-	    }
-	 
-	 private void addPlayerSlots(IInventory playerInventory) {
-	        // Slots for the main inventory
-	        for (int row = 0; row < 3; ++row) {
-	            for (int col = 0; col < 9; ++col) {
-	                int x = 8 + col * 18;
-	                int y = row * 18 + 42;
-	                this.addSlotToContainer(new Slot(playerInventory, col + row * 9 + 10, x, y));
-	            }
-	        }
+	public ContainerUberTable(IInventory playerInventory, TileEntityUberTable te) {
+		this.te = te;
 
-	        // Slots for the hotbar
-	        for (int row = 0; row < 9; ++row) {
-	            int x = 8 + row * 18;
-	            int y = 100;
-	            this.addSlotToContainer(new Slot(playerInventory, row, x, y));
-	        }
-	    }
+		// This container references items out of our own inventory (the 9 slots we hold
+		// ourselves)
+		// as well as the slots from the player inventory so that the user can transfer
+		// items between
+		// both inventories. The two calls below make sure that slots are defined for
+		// both inventories.
+		addOwnSlots();
+		addPlayerSlots(playerInventory);
+	}
 
-	    private void addOwnSlots() {
-	        IItemHandler itemHandler = this.te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-	        int x = 8;
-	        int y = 12;
+	private void addPlayerSlots(IInventory playerInventory) {
+		// Slots for the main inventory
+		for (int row = 0; row < 3; ++row) {
+			for (int col = 0; col < 9; ++col) {
+				int x = 8 + col * 18;
+				int y = row * 18 + 42;
+				this.addSlotToContainer(new Slot(playerInventory, col + row * 9 + 10, x, y));
+			}
+		}
 
-	        // Add our own slots
-	        int slotIndex = 0;
-	        for (int i = 0; i < itemHandler.getSlots(); i++) {
-	            addSlotToContainer(new SlotItemHandler(itemHandler, slotIndex, x, y));
-	            slotIndex++;
-	            x += 18;
-	        }
-	    }
-	 
-	    @Nullable
-	    @Override
-	    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-	        ItemStack itemstack = null;
-	        Slot slot = this.inventorySlots.get(index);
+		// Slots for the hotbar
+		for (int row = 0; row < 9; ++row) {
+			int x = 8 + row * 18;
+			int y = 100;
+			this.addSlotToContainer(new Slot(playerInventory, row, x, y));
+		}
+	}
 
-	        if (slot != null && slot.getHasStack()) {
-	            ItemStack itemstack1 = slot.getStack();
-	            itemstack = itemstack1.copy();
+	private void addOwnSlots() {
+		IItemHandler itemHandler = this.te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+		int x = 8;
+		int y = 12;
 
-	            if (index < TileEntityUberTable.SIZE) {
-	                if (!this.mergeItemStack(itemstack1, TileEntityUberTable.SIZE, this.inventorySlots.size(), true)) {
-	                    return null;
-	                }
-	            } else if (!this.mergeItemStack(itemstack1, 0, TileEntityUberTable.SIZE, false)) {
-	                return null;
-	            }
+		// Add our own slots
+		int slotIndex = 0;
+		for (int i = 0; i < itemHandler.getSlots(); i++) {
+			addSlotToContainer(new SlotItemHandler(itemHandler, slotIndex, x, y));
+			slotIndex++;
+			x += 18;
+		}
+	}
 
-	            if (itemstack1.isEmpty()) {
-	                slot.putStack(ItemStack.EMPTY);
-	            } else {
-	                slot.onSlotChanged();
-	            }
-	        }
+	@Override
+    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
+    {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
 
-	        return itemstack;
-	    }
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
 
-	    @Override
-	    public boolean canInteractWith(EntityPlayer playerIn) {
-	        return te.canInteractWith(playerIn);
-	    }
-	    
+            if (index < 9)
+            {
+                if (!this.mergeItemStack(itemstack1, 9, this.inventorySlots.size(), true))
+                {
+                    return ItemStack.EMPTY;
+                }
+            }
+            else if (!this.mergeItemStack(itemstack1, 0, 9, false))
+            {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemstack1.isEmpty())
+            {
+                slot.putStack(ItemStack.EMPTY);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+        }
+
+        return itemstack;
+    }
+
+	@Override
+	public boolean canInteractWith(EntityPlayer playerIn) {
+		return te.canInteractWith(playerIn);
+	}
+
+	@Override
+	public void detectAndSendChanges() {
+
+		for (int i = 0; i < this.inventorySlots.size(); ++i) {
+			ItemStack itemstack = ((Slot) this.inventorySlots.get(i)).getStack();
+			ItemStack itemstack1 = this.inventoryItemStacks.get(i);
+			if (!ItemStack.areItemStacksEqual(itemstack1, itemstack)) {
+				boolean clientStackChanged = !ItemStack.areItemStacksEqualUsingNBTShareTag(itemstack1, itemstack);
+				itemstack1 = itemstack.isEmpty() ? ItemStack.EMPTY : itemstack.copy();
+				this.inventoryItemStacks.set(i, itemstack1);
+
+				if (clientStackChanged)
+					for (int j = 0; j < this.listeners.size(); ++j) {
+						((IContainerListener) this.listeners.get(j)).sendSlotContents(this, i, itemstack1);
+					}
+			}
+		}
+	}
+
+	@Override
+	public void onContainerClosed(EntityPlayer playerIn) {
+		InventoryPlayer inventoryplayer = playerIn.inventory;
+		te.setContents(this.inventoryItemStacks);
+		if (!inventoryplayer.getItemStack().isEmpty()) {
+			playerIn.dropItem(inventoryplayer.getItemStack(), false);
+			inventoryplayer.setItemStack(ItemStack.EMPTY);
+		}
+	}
+
 }

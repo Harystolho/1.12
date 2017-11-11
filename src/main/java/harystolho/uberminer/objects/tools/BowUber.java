@@ -25,7 +25,7 @@ public class BowUber extends Item implements IHasModel{
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setCreativeTab(Main.UBERMINER);
-		setMaxDamage(0);
+		setMaxStackSize(1);
 		addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter()
         {
             @SideOnly(Side.CLIENT)
