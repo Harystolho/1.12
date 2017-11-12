@@ -1,0 +1,8 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "top": "uberminer:blocks/block_ubercrafter",
+        "side": "uberminer:blocks/block_ubercrafter",
+        "front": "uberminer:blocks/block_ubercrafter"
+    }
+}

@@ -72,41 +72,22 @@ public class BlockUberTable extends Block implements IHasModel {
 		if (tileentity instanceof TileEntityUberTable) {
 			TileEntityUberTable tileentityiubertable = (TileEntityUberTable) tileentity;
 
-			if (!tileentityiubertable.isEmpty()) {
-				/*ItemStack itemstack = new ItemStack(Item.getItemFromBlock(this), 1, 0);
-				NBTTagCompound nbttagcompound = new NBTTagCompound();
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-
-				nbttagcompound.setTag("BlockEntityTag", ((TileEntityUberTable) tileentity).writeToNBT(nbttagcompound1));
-				itemstack.setTagCompound(nbttagcompound);
-
-				if (tileentityiubertable.hasCustomName()) {
-					itemstack.setStackDisplayName(tileentityiubertable.getName());
-
-					tileentityiubertable.setCustomName("Uber Table");
-				}
-				System.out.println("Breaking...");
-				spawnAsEntity(worldIn, pos, itemstack);
-				worldIn.removeTileEntity(pos);*/
-				
-				worldIn.updateComparatorOutputLevel(pos, state.getBlock());
-			} 
-				NonNullList<ItemStack> ret = NonNullList.create();
-				getDrops(ret, worldIn, pos, state, 0);
+			NonNullList<ItemStack> ret = NonNullList.create();
+			getDrops(ret, worldIn, pos, state, 0);
 		}
 	}
-	
+
 	@Override
-    public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
-    {
-        super.getDrops(drops, world, pos, state, fortune);
-        TileEntityUberTable te = world.getTileEntity(pos) instanceof TileEntityUberTable ? (TileEntityUberTable)world.getTileEntity(pos) : null;
-        if (te != null && te.isEmpty()) {
-        	System.out.println("Dropping");
-        	drops.add(ItemStack.EMPTY);
-        } else if(te != null && !te.isEmpty()){
-        	System.out.println("Dropping nbt");
-        	ItemStack itemstack = new ItemStack(Item.getItemFromBlock(this), 1, 0);
+	public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos,
+			IBlockState state, int fortune) {
+		super.getDrops(drops, world, pos, state, fortune);
+		TileEntityUberTable te = world.getTileEntity(pos) instanceof TileEntityUberTable
+				? (TileEntityUberTable) world.getTileEntity(pos)
+				: null;
+		if (te != null && te.isEmpty()) {
+			drops.add(ItemStack.EMPTY);
+		} else if (te != null && !te.isEmpty()) {
+			ItemStack itemstack = new ItemStack(Item.getItemFromBlock(this), 1, 0);
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 			NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
@@ -118,27 +99,26 @@ public class BlockUberTable extends Block implements IHasModel {
 
 				te.setCustomName("Uber Table");
 			}
-			System.out.println("Breaking...");
-			//spawnAsEntity(te.getWorld(), pos, itemstack);
+			te.getWorld().updateComparatorOutputLevel(pos, state.getBlock());
 			te.getWorld().removeTileEntity(pos);
-			System.out.println(drops.toString());
 			drops.remove(0);
-        	drops.add(itemstack);
-        }
-    }
+			drops.add(itemstack);
+		}
+	}
 
 	@Override
-    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
-    {
-        if (willHarvest) return true; //If it will harvest, delay deletion of the block until after getDrops
-        return super.removedByPlayer(state, world, pos, player, willHarvest);
-    }
-	
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player,
+			boolean willHarvest) {
+		if (willHarvest)
+			return true; // If it will harvest, delay deletion of the block until after getDrops
+		return super.removedByPlayer(state, world, pos, player, willHarvest);
+	}
+
 	@Override
-    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack tool)
-    {
-        super.harvestBlock(world, player, pos, state, te, tool);
-        world.setBlockToAir(pos);
-    }
-	
+	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te,
+			ItemStack tool) {
+		super.harvestBlock(world, player, pos, state, te, tool);
+		world.setBlockToAir(pos);
+	}
+
 }
