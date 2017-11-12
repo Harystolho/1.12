@@ -1,22 +1,16 @@
 package harystolho.uberminer.objects.blocks;
 
-import java.util.Random;
-
 import javax.annotation.Nullable;
 
 import harystolho.uberminer.Main;
 import harystolho.uberminer.init.BlockInit;
 import harystolho.uberminer.init.ItemInit;
-import harystolho.uberminer.inventory.ContainerUberTable;
-import harystolho.uberminer.tile.TileEntityUberTable;
 import harystolho.uberminer.tile.TileEntityUberTable;
 import harystolho.uberminer.utils.IHasModel;
 import net.minecraft.block.Block;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -24,11 +18,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.SidedProxy;
 
-public class BlockUberTable extends Block implements IHasModel{
+public class BlockUberTable extends Block implements IHasModel {
 
 	public BlockUberTable(String name) {
 		super(Material.IRON);
@@ -61,10 +56,9 @@ public class BlockUberTable extends Block implements IHasModel{
 
 	@Override
 	@Nullable
-    public TileEntity createTileEntity(World world, IBlockState state)
-    {
-       return new TileEntityUberTable();
-    }
+	public TileEntity createTileEntity(World world, IBlockState state) {
+		return new TileEntityUberTable();
+	}
 
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
@@ -79,7 +73,7 @@ public class BlockUberTable extends Block implements IHasModel{
 			TileEntityUberTable tileentityiubertable = (TileEntityUberTable) tileentity;
 
 			if (!tileentityiubertable.isEmpty()) {
-				ItemStack itemstack = new ItemStack(Item.getItemFromBlock(this), 1, 0);
+				/*ItemStack itemstack = new ItemStack(Item.getItemFromBlock(this), 1, 0);
 				NBTTagCompound nbttagcompound = new NBTTagCompound();
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
@@ -93,12 +87,58 @@ public class BlockUberTable extends Block implements IHasModel{
 				}
 				System.out.println("Breaking...");
 				spawnAsEntity(worldIn, pos, itemstack);
-
+				worldIn.removeTileEntity(pos);*/
+				
 				worldIn.updateComparatorOutputLevel(pos, state.getBlock());
-			} else {
-				super.getDrops(worldIn, pos, state, 0);
-			}
+			} 
+				NonNullList<ItemStack> ret = NonNullList.create();
+				getDrops(ret, worldIn, pos, state, 0);
 		}
 	}
+	
+	@Override
+    public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+    {
+        super.getDrops(drops, world, pos, state, fortune);
+        TileEntityUberTable te = world.getTileEntity(pos) instanceof TileEntityUberTable ? (TileEntityUberTable)world.getTileEntity(pos) : null;
+        if (te != null && te.isEmpty()) {
+        	System.out.println("Dropping");
+        	drops.add(ItemStack.EMPTY);
+        } else if(te != null && !te.isEmpty()){
+        	System.out.println("Dropping nbt");
+        	ItemStack itemstack = new ItemStack(Item.getItemFromBlock(this), 1, 0);
+			NBTTagCompound nbttagcompound = new NBTTagCompound();
+			NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
+			nbttagcompound.setTag("BlockEntityTag", ((TileEntityUberTable) te).writeToNBT(nbttagcompound1));
+			itemstack.setTagCompound(nbttagcompound);
+
+			if (te.hasCustomName()) {
+				itemstack.setStackDisplayName(te.getName());
+
+				te.setCustomName("Uber Table");
+			}
+			System.out.println("Breaking...");
+			//spawnAsEntity(te.getWorld(), pos, itemstack);
+			te.getWorld().removeTileEntity(pos);
+			System.out.println(drops.toString());
+			drops.remove(0);
+        	drops.add(itemstack);
+        }
+    }
+
+	@Override
+    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
+    {
+        if (willHarvest) return true; //If it will harvest, delay deletion of the block until after getDrops
+        return super.removedByPlayer(state, world, pos, player, willHarvest);
+    }
+	
+	@Override
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack tool)
+    {
+        super.harvestBlock(world, player, pos, state, te, tool);
+        world.setBlockToAir(pos);
+    }
+	
 }
