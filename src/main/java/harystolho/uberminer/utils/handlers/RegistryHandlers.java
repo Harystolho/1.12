@@ -3,6 +3,7 @@ package harystolho.uberminer.utils.handlers;
 import java.util.ArrayList;
 import java.util.List;
 
+import harystolho.uberminer.Main;
 import harystolho.uberminer.crafting.InitCrafting;
 import harystolho.uberminer.init.BlockInit;
 import harystolho.uberminer.init.ItemInit;
@@ -43,7 +44,6 @@ public class RegistryHandlers {
 		InitCrafting.init();
 		
 		for (IRecipe recipe : RECIPES) {
-			System.out.println("==========================================================");
 			event.getRegistry().register(recipe);
 		}
 		RECIPES.clear();
@@ -51,11 +51,13 @@ public class RegistryHandlers {
 
 	@SubscribeEvent
 	public static void onModelRegister(ModelRegistryEvent event) {
+		Main.LOGGER.info("Adding Items");
 		for (Item item : ItemInit.ITEMS) {
 			if (item instanceof IHasModel) {
 				((IHasModel) item).registerModels();
 			}
 		}
+		Main.LOGGER.info("Adding Blocks");
 		for (Block block : BlockInit.BLOCKS) {
 			if (block instanceof IHasModel) {
 				((IHasModel) block).registerModels();
