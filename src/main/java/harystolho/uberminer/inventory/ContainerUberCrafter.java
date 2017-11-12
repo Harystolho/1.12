@@ -23,7 +23,6 @@ public class ContainerUberCrafter extends Container {
 	}
 
 	private void addPlayerSlots(IInventory playerInventory) {
-		// Slots for the main inventory
 		for (int row = 0; row < 3; ++row) {
 			for (int col = 0; col < 9; ++col) {
 				int x = 8 + col * 18;
@@ -32,7 +31,6 @@ public class ContainerUberCrafter extends Container {
 			}
 		}
 
-		// Slots for the hotbar
 		for (int row = 0; row < 9; ++row) {
 			int x = 8 + row * 18;
 			int y = 142;
