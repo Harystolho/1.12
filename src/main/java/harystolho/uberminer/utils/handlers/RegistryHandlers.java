@@ -2,6 +2,7 @@ package harystolho.uberminer.utils.handlers;
 
 import harystolho.uberminer.init.BlockInit;
 import harystolho.uberminer.init.ItemInit;
+import harystolho.uberminer.tile.TileEntityUberCrafter;
 import harystolho.uberminer.tile.TileEntityUberTable;
 import harystolho.uberminer.utils.IHasModel;
 import harystolho.uberminer.utils.Reference;
@@ -26,7 +27,8 @@ public class RegistryHandlers {
 	public static void onBlockRegister(RegistryEvent.Register<Block> event) {
 		event.getRegistry().registerAll(BlockInit.BLOCKS.toArray(new Block[0]));
 		
-		GameRegistry.registerTileEntity(TileEntityUberTable.class, Reference.MODID + "_ubercontainer");
+		GameRegistry.registerTileEntity(TileEntityUberTable.class, Reference.MODID + "_ubertable");
+		GameRegistry.registerTileEntity(TileEntityUberCrafter.class, Reference.MODID + "_ubercrafter");
 	}
 	
 	@SubscribeEvent

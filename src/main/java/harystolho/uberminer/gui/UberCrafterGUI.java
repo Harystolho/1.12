@@ -6,14 +6,14 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
-public class UberTableGUI extends GuiContainer{
+public class UberCrafterGUI extends GuiContainer{
 
-	public static final int WIDTH = 176; //176 166
-    public static final int HEIGHT = 124;
+	public static final int WIDTH = 176;
+    public static final int HEIGHT = 166;
 
-    private static final ResourceLocation background = new ResourceLocation(Reference.MODID, "textures/gui/uber_table.png");
+    private static final ResourceLocation background = new ResourceLocation(Reference.MODID, "textures/gui/uber_crafter.png");
 
-    public UberTableGUI(Container container, InventoryPlayer playerInv) {
+    public UberCrafterGUI(Container container, InventoryPlayer playerInv) {
 		super(container);
         xSize = WIDTH;
         ySize = HEIGHT;

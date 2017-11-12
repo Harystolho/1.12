@@ -8,6 +8,6 @@ import net.minecraft.item.ItemStack;
 public class UberMinerTab extends CreativeTabs {
 
 	public UberMinerTab(String name) { super("uberminer");}
-	public ItemStack getTabIconItem() { return new ItemStack(BlockInit.BLOCK_UBER_TABLE);}
+	public ItemStack getTabIconItem() { return new ItemStack(BlockInit.BLOCK_UBER_CRAFTER);}
 
 }
