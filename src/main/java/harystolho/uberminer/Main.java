@@ -1,5 +1,8 @@
 package harystolho.uberminer;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import harystolho.uberminer.proxy.CommonProxy;
 import harystolho.uberminer.utils.GuiProxy;
 import harystolho.uberminer.utils.Reference;
@@ -23,6 +26,8 @@ public class Main {
 	public static CommonProxy proxy;
 	
 	public static final CreativeTabs UBERMINER = new UberMinerTab("uberminer");
+	
+	public static final Logger LOGGER = LogManager.getLogger(Reference.NAME);
 	
 	@EventHandler
 	public static void preInit(FMLPreInitializationEvent event) {}

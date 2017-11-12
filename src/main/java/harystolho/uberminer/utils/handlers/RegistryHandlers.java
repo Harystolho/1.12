@@ -1,5 +1,8 @@
 package harystolho.uberminer.utils.handlers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import harystolho.uberminer.crafting.InitCrafting;
 import harystolho.uberminer.init.BlockInit;
 import harystolho.uberminer.init.ItemInit;
@@ -20,6 +23,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @EventBusSubscriber
 public class RegistryHandlers {
 
+	public static final List<IRecipe> RECIPES = new ArrayList<>();
+
 	@SubscribeEvent
 	public static void onItemRegister(RegistryEvent.Register<Item> event) {
 		event.getRegistry().registerAll(ItemInit.ITEMS.toArray(new Item[0]));
@@ -32,15 +37,16 @@ public class RegistryHandlers {
 		GameRegistry.registerTileEntity(TileEntityUberTable.class, Reference.MODID + "_ubertable");
 		GameRegistry.registerTileEntity(TileEntityUberCrafter.class, Reference.MODID + "_ubercrafter");
 	}
-	
+
 	@SubscribeEvent
-    public void onCraftingRegistry(Register<IRecipe> event){
+	public void onCraftingRegistry(Register<IRecipe> event) {
 		InitCrafting.init();
-		/*
-        for(IRecipe recipe : RECIPES_TO_REGISTER){
-            event.getRegistry().register(recipe);
-        }
-        RECIPES_TO_REGISTER.clear();		*/
+		
+		for (IRecipe recipe : RECIPES) {
+			System.out.println("==========================================================");
+			event.getRegistry().register(recipe);
+		}
+		RECIPES.clear();
 	}
 
 	@SubscribeEvent
