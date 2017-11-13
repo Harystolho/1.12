@@ -41,7 +41,7 @@ public class BowUber extends Item implements IHasModel {
 					return 0.0F;
 				} else {
 					return entityIn.getActiveItemStack().getItem() != ItemInit.TOOL_UBER ? 0.0F
-							: (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
+							: (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F * 1.5F;
 				}
 			}
 		});
@@ -89,36 +89,29 @@ public class BowUber extends Item implements IHasModel {
 
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-
-		if ((stack.getMaxItemUseDuration() - entityLiving.getItemInUseCount()) / 20.0F > 5.0) {
-			NBTTagCompound tag = stack.getTagCompound();
-			int radius = tag.getInteger("ToolRadius");
-			for (int x = -radius; x < radius + 1; x++) {
-				for (int y = -radius; y < radius + 1; y++) {
-					for (int z = -radius; z < radius + 1; z++) {
-						BlockPos blockpos = new BlockPos(entityLiving.getPosition().getX() + x,
-								entityLiving.getPosition().getY() + y, entityLiving.getPosition().getZ() + z);
-						IBlockState iblockstate = worldIn.getBlockState(blockpos);
-						if (isOre(iblockstate.getBlock())) {
-							IBlockState stone = Blocks.STONE.getDefaultState();
-							worldIn.setBlockState(blockpos, stone);
-							ItemStack item = new ItemStack(iblockstate.getBlock());
-						
-							entityLiving.entityDropItem(item, 1F);
+		if (!worldIn.isRemote) {
+			if ((stack.getMaxItemUseDuration() - entityLiving.getItemInUseCount()) / 20.0F * 1.5 > 5.0 ) {
+				NBTTagCompound tag = stack.getTagCompound();
+				int radius = tag.getInteger("ToolRadius");
+				for (int x = -radius; x < radius + 1; x++) {
+					for (int y = -radius; y < radius + 1; y++) {
+						for (int z = -radius; z < radius + 1; z++) {
+							BlockPos blockpos = new BlockPos(entityLiving.getPosition().getX() + x,
+									entityLiving.getPosition().getY() + y, entityLiving.getPosition().getZ() + z);
+							IBlockState iblockstate = worldIn.getBlockState(blockpos);
+							if (isOre(iblockstate.getBlock())) {
+								IBlockState stone = Blocks.STONE.getDefaultState();
+								worldIn.setBlockState(blockpos, stone);
+								ItemStack item = new ItemStack(iblockstate.getBlock());
+								entityLiving.entityDropItem(item, 1F);
+							}
 						}
 					}
 				}
 			}
 		}
 	}
-	
-	/*	EntityItem t = new EntityItem(worldIn);
-	t.setItem(item);
-	t.setPosition(entityLiving.getPosition().getX(), entityLiving.getPosition().getY()+1, entityLiving.getPosition().getZ());
-	t.setPickupDelay(1);
-	worldIn.spawnEntity(t);*/
 
-	// @SideOnly(Side.SERVER)
 	public boolean isOre(Block block) {
 		if (block.getRegistryName().toString().toLowerCase().contains("ore")
 				|| block.getUnlocalizedName().toString().toLowerCase().contains("ore")) {
