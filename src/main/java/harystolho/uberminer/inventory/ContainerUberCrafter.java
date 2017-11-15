@@ -98,14 +98,4 @@ public class ContainerUberCrafter extends Container {
 		}
 	}
 
-	@Override
-	public void onContainerClosed(EntityPlayer playerIn) {
-		InventoryPlayer inventoryplayer = playerIn.inventory;
-		te.setContents(this.inventoryItemStacks);
-		if (!inventoryplayer.getItemStack().isEmpty()) {
-			playerIn.dropItem(inventoryplayer.getItemStack(), false);
-			inventoryplayer.setItemStack(ItemStack.EMPTY);
-		}
-	}
-
 }

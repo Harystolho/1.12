@@ -1,16 +1,29 @@
 package harystolho.uberminer.tile;
 
 import harystolho.uberminer.inventory.ContainerUberCrafter;
+import harystolho.uberminer.objects.items.BowUber;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.inventory.SlotFurnaceFuel;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.tileentity.TileEntityLockableLoot;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.datafix.DataFixer;
+import net.minecraft.util.datafix.FixTypes;
+import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 
-public class TileEntityUberCrafter extends TileEntityLockableLoot {
+public class TileEntityUberCrafter extends TileEntityLockable implements ITickable {
 
 	public static final int SIZE = 4;
 	public NonNullList<ItemStack> items;
@@ -19,28 +32,24 @@ public class TileEntityUberCrafter extends TileEntityLockableLoot {
 		super();
 		this.items = NonNullList.<ItemStack>withSize(SIZE, ItemStack.EMPTY);
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		this.items = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
-		if (!this.checkLootAndRead(compound) && compound.hasKey("Items", 4)) {
-			ItemStackHelper.loadAllItems(compound, this.items);
-		}
-
-		if (compound.hasKey("CustomName", 8)) {
-			this.customName = compound.getString("CustomName");
-		}
-
+		ItemStackHelper.loadAllItems(compound, this.items);
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
-		if (!this.checkLootAndWrite(compound)) {
-			ItemStackHelper.saveAllItems(compound, this.items, false);
-		}
+		ItemStackHelper.saveAllItems(compound, this.items);
 		return compound;
+	}
+
+	public static void registerFixesCrafter(DataFixer fixer) {
+		fixer.registerWalker(FixTypes.BLOCK_ENTITY,
+				new ItemStackDataLists(TileEntityUberCrafter.class, new String[] { "Items" }));
 	}
 
 	public boolean canInteractWith(EntityPlayer playerIn) {
@@ -75,7 +84,6 @@ public class TileEntityUberCrafter extends TileEntityLockableLoot {
 
 	@Override
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-		this.fillWithLoot(playerIn);
 		return new ContainerUberCrafter(playerInventory, this);
 	}
 
@@ -84,27 +92,147 @@ public class TileEntityUberCrafter extends TileEntityLockableLoot {
 		return "";
 	}
 
-	@Override
 	protected NonNullList<ItemStack> getItems() {
 		return this.items;
 	}
 
 	@Override
-    public ItemStack getStackInSlot(int index)
-    {
-        this.fillWithLoot((EntityPlayer) null);
+	public void update() {
+		if (!this.world.isRemote) {
+			ItemStack tool = getStackInSlot(3);
+			if (!tool.isEmpty()) {
+				NBTTagCompound nbt = tool.getTagCompound();
+				if (nbt == null) {
+					NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+					nbttagcompound1.setInteger("ToolDurability", 100);
+					nbttagcompound1.setInteger("ToolRadius", 1);
+					nbttagcompound1.setFloat("ToolSpeed", 1);
+					nbttagcompound1.setString("ToolModifiers", "---");
 
-        return this.getItems().get(index);
-    }
-	
-	public void setContents(NonNullList<ItemStack> contents) {
-		this.items = NonNullList.<ItemStack>withSize(SIZE, ItemStack.EMPTY);
+					tool.setTagCompound(nbttagcompound1);
+				}
 
-		for (int i = 0; i < contents.size(); i++) {
-			if (i < this.items.size()) {
-				this.getItems().set(i, contents.get(i));
+				nbt = tool.getTagCompound();
+
+				int maxSpeed = 2;
+				if (nbt.getString("ToolModifiers") != null) {
+					if (nbt.getString("ToolModifiers").equals("ExtraSpeed"))
+						if (maxSpeed == 2)
+							maxSpeed++;
+				}
+
+				if (!getStackInSlot(0).isEmpty()) {
+					if (nbt.getFloat("ToolSpeed") < maxSpeed) {
+						ItemStack item1 = getStackInSlot(0);
+						item1.setCount(item1.getCount() - 1);
+						nbt.setFloat("ToolSpeed", nbt.getFloat("ToolSpeed") + 0.005F);
+					}
+				}
+				if (!getStackInSlot(2).isEmpty()) {
+					ItemStack item3 = getStackInSlot(2);
+					if (nbt.getString("ToolModifiers").equals("---")) {
+						System.out.print(item3.getUnlocalizedName());
+						if (item3.getUnlocalizedName().equals("item.speed_modifier")) {
+							item3.setCount(item3.getCount() - 1);
+							nbt.setString("ToolModifiers", "ExtraSpeed");
+						} else if (item3.getUnlocalizedName().equals("item.range_modifier")) {
+							item3.setCount(item3.getCount() - 1);
+							nbt.setString("ToolModifiers", "ExtraRange");
+						}
+						
+					}
+				}
 			}
 		}
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int index) {
+
+		return this.getItems().get(index);
+	}
+
+	@Override
+	public ItemStack decrStackSize(int index, int count) {
+		return ItemStackHelper.getAndSplit(this.items, index, count);
+	}
+
+	@Override
+	public ItemStack removeStackFromSlot(int index) {
+		return ItemStackHelper.getAndRemove(this.items, index);
+	}
+
+	@Override
+	public void setInventorySlotContents(int index, ItemStack stack) {
+		ItemStack itemstack = this.items.get(index);
+		boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack)
+				&& ItemStack.areItemStackTagsEqual(stack, itemstack);
+		this.items.set(index, stack);
+
+		if (stack.getCount() > this.getInventoryStackLimit()) {
+			stack.setCount(this.getInventoryStackLimit());
+		}
+
+		if (index == 3) {
+			this.markDirty();
+		}
+	}
+
+	@Override
+	public boolean isUsableByPlayer(EntityPlayer player) {
+		if (this.world.getTileEntity(this.pos) != this) {
+			return false;
+		} else {
+			return player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
+					(double) this.pos.getZ() + 0.5D) <= 64.0D;
+		}
+	}
+
+	@Override
+	public void openInventory(EntityPlayer player) {
+		
+	}
+
+	@Override
+	public void closeInventory(EntityPlayer player) {
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		if (index == 3) {
+			if (stack.getUnlocalizedName().equals("item.bow_uber")) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
+	}
+
+	@Override
+	public int getField(int id) {
+		return 0;
+	}
+
+	@Override
+	public void setField(int id, int value) {
+
+	}
+
+	@Override
+	public int getFieldCount() {
+		return 0;
+	}
+
+	@Override
+	public void clear() {
+
+	}
+
+	@Override
+	public boolean hasCustomName() {
+		return false;
 	}
 
 }

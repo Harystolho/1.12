@@ -2,6 +2,8 @@ itemGroup.uberminer=UberMiner
 
 item.tool_uber.name=Uber Mining Tool
 item.bow_uber.name=UberMiner's Tool
+item.range_modifier.name=Range Modifier
+item.speed_modifier.name=Speed Modifier
 
 tile.block_ubertable.name=Uber Table
 tile.block_ubercrafter.name=Uber Crafter

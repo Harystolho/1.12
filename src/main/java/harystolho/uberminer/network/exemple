@@ -1,0 +1,142 @@
+package harystolho.uberminer.network;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.network.handshake.NetworkDispatcher;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+
+public class MessageUberTable implements IMessage {
+
+
+    private boolean messageValid;
+
+    public MessageUberTable() {
+        this.messageValid = false;
+    }
+
+    public MessageUberTable(List list) {
+
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        try {
+
+        } catch (IndexOutOfBoundsException ioe) {
+            return;
+        }
+        this.messageValid = true;
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
+        if (!this.messageValid)
+            return;
+
+    }
+
+    public static class Handler implements IMessageHandler<MessageUberTable, IMessage> {
+
+        @Override
+        public IMessage onMessage(MessageUberTable message, MessageContext ctx) {
+            if (!message.messageValid && ctx.side != Side.SERVER)
+                return null;
+            //FMLCommonHandler.instance().getWorldThread(ctx.netHandler)
+            //          .addScheduledTask(() -> processMessage(message, ctx));
+            return null;
+        }
+
+        /*void processMessage(MessageUberTable message, MessageContext ctx) {
+            TileEntity te = ctx.getServerHandler().player.getServerWorld().getTileEntity();
+            if (te == null)
+                return;
+            if (!(te instanceof TileEntityEnergyCell))
+                return;
+            Networkhandler.INSTANCE.sendTo(new PacketReturnEnergyDifference(((TileEntityEnergyCell) te).energyDifference,
+                    message.className, message.energyDifferenceFieldName), ctx.getServerHandler().player);
+        }*/
+
+    }
+
+}
+
+====================================================================================================
+
+package harystolho.uberminer.network;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+
+public class MessageUberTool implements IMessage {
+
+    private List<ItemStack> list = new ArrayList<ItemStack>();
+
+    private boolean messageValid;
+
+    public MessageUberTool() {
+        this.messageValid = false;
+    }
+
+    public MessageUberTool(List list) {
+
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        try {
+
+        } catch (IndexOutOfBoundsException ioe) {
+            return;
+        }
+        this.messageValid = true;
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
+        if (!this.messageValid)
+            return;
+
+    }
+
+    public static class Handler implements IMessageHandler<MessageUberTool, IMessage> {
+
+        @Override
+        public IMessage onMessage(MessageUberTool message, MessageContext ctx) {
+            if (!message.messageValid && ctx.side != Side.CLIENT)
+                return null;
+            Minecraft.getMinecraft().addScheduledTask(() -> processMessage(message));
+            return null;
+        }
+
+        void processMessage(MessageUberTool message) {
+            try {
+                
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+}

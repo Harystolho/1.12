@@ -29,6 +29,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BowUber extends Item implements IHasModel {
 
+	private double speed;
+
 	public BowUber(String name) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
@@ -41,7 +43,8 @@ public class BowUber extends Item implements IHasModel {
 					return 0.0F;
 				} else {
 					return entityIn.getActiveItemStack().getItem() != ItemInit.TOOL_UBER ? 0.0F
-							: (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F * 1.5F;
+							: (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F
+									* (float) speed;
 				}
 			}
 		});
@@ -59,15 +62,20 @@ public class BowUber extends Item implements IHasModel {
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		NBTTagCompound nbttagcompound = playerIn.getHeldItemMainhand().getTagCompound();
-		if (nbttagcompound == null) {
-			NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-			nbttagcompound1.setInteger("ToolDurability", 100);
-			nbttagcompound1.setInteger("ToolRadius", 1);
-			nbttagcompound1.setInteger("ToolSpeed", 1);
-			nbttagcompound1.setString("ToolModifiers", "---");
+		System.out.println(Thread.currentThread().getName());
+		if (!worldIn.isRemote) {
+			NBTTagCompound nbttagcompound = playerIn.getHeldItemMainhand().getTagCompound();
+			if (nbttagcompound == null) {
+				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+				nbttagcompound1.setInteger("ToolDurability", 100);
+				nbttagcompound1.setInteger("ToolRadius", 1);
+				nbttagcompound1.setFloat("ToolSpeed", 1);
+				nbttagcompound1.setString("ToolModifiers", "---");
 
-			playerIn.getHeldItemMainhand().setTagCompound(nbttagcompound1);
+				playerIn.getHeldItemMainhand().setTagCompound(nbttagcompound1);
+			}
+			speed = (double) nbttagcompound.getFloat("ToolSpeed");
+			System.out.println(speed);
 		}
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
@@ -90,7 +98,7 @@ public class BowUber extends Item implements IHasModel {
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 		if (!worldIn.isRemote) {
-			if ((stack.getMaxItemUseDuration() - entityLiving.getItemInUseCount()) / 20.0F * 1.5 > 5.0 ) {
+			if ((stack.getMaxItemUseDuration() - entityLiving.getItemInUseCount()) / 20.0F * speed > 5.0) {
 				NBTTagCompound tag = stack.getTagCompound();
 				int radius = tag.getInteger("ToolRadius");
 				for (int x = -radius; x < radius + 1; x++) {
@@ -125,21 +133,18 @@ public class BowUber extends Item implements IHasModel {
 		return 400;
 	}
 
-	public void UpdateNBT() {
-
-	}
-
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbttagcompound = stack.getTagCompound();
 		if (nbttagcompound != null) {
 			int nbttag_darability = nbttagcompound.getInteger("ToolDurability");
 			int nbttag_radius = nbttagcompound.getInteger("ToolRadius");
-			int nbttag_speed = nbttagcompound.getInteger("ToolSpeed");
+			float nbttag_speed = nbttagcompound.getFloat("ToolSpeed");
 			String nbttag_modifier = nbttagcompound.getString("ToolModifiers");
+
 			tooltip.add("Durability: " + nbttag_darability);
 			tooltip.add("Radius: " + nbttag_radius);
-			tooltip.add("Speed: " + nbttag_speed);
+			tooltip.add("Speed: " + String.format("%1$.2f", nbttag_speed));
 			tooltip.add("Modifiers: [" + nbttag_modifier + "]");
 		}
 	}

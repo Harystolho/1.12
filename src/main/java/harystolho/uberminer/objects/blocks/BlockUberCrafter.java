@@ -58,6 +58,7 @@ public class BlockUberCrafter extends Block implements IHasModel {
 		return new TileEntityUberCrafter();
 	}
 
+	
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
 		return true;
