@@ -1,9 +1,18 @@
-package harystolho.uberminer.objects.items;
+package harystolho.uberminer.items;
+
+import java.util.List;
+
+import javax.annotation.Nullable;
 
 import harystolho.uberminer.Main;
 import harystolho.uberminer.init.ItemInit;
 import harystolho.uberminer.utils.IHasModel;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SpeedModifier extends Item implements IHasModel{
 
@@ -21,5 +30,10 @@ public class SpeedModifier extends Item implements IHasModel{
 		Main.proxy.registerItemRenderer(this, 0, "inventory");
 	}
 
-
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add("MaxSpeed +1. (Default MaxSpeed = 1)");
+	}
+	
+	
 }

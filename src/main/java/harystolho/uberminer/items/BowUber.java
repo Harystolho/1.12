@@ -1,4 +1,4 @@
-package harystolho.uberminer.objects.items;
+package harystolho.uberminer.items;
 
 import java.util.List;
 
@@ -62,7 +62,6 @@ public class BowUber extends Item implements IHasModel {
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		System.out.println(Thread.currentThread().getName());
 		if (!worldIn.isRemote) {
 			NBTTagCompound nbttagcompound = playerIn.getHeldItemMainhand().getTagCompound();
 			if (nbttagcompound == null) {
@@ -74,8 +73,11 @@ public class BowUber extends Item implements IHasModel {
 
 				playerIn.getHeldItemMainhand().setTagCompound(nbttagcompound1);
 			}
-			speed = (double) nbttagcompound.getFloat("ToolSpeed");
-			System.out.println(speed);
+			try {
+				speed = (double) nbttagcompound.getFloat("ToolSpeed");
+			} catch (NullPointerException e) {
+				speed = 1F;
+			}
 		}
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);

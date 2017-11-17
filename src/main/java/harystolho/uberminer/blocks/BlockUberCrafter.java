@@ -1,4 +1,4 @@
-package harystolho.uberminer.objects.blocks;
+package harystolho.uberminer.blocks;
 
 import javax.annotation.Nullable;
 

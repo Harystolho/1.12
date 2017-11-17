@@ -3,8 +3,8 @@ package harystolho.uberminer.init;
 import java.util.ArrayList;
 import java.util.List;
 
-import harystolho.uberminer.objects.blocks.BlockUberCrafter;
-import harystolho.uberminer.objects.blocks.BlockUberTable;
+import harystolho.uberminer.blocks.BlockUberCrafter;
+import harystolho.uberminer.blocks.BlockUberTable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;

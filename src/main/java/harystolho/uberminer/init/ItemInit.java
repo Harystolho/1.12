@@ -3,9 +3,9 @@ package harystolho.uberminer.init;
 import java.util.ArrayList;
 import java.util.List;
 
-import harystolho.uberminer.objects.items.BowUber;
-import harystolho.uberminer.objects.items.RangeModifier;
-import harystolho.uberminer.objects.items.SpeedModifier;
+import harystolho.uberminer.items.BowUber;
+import harystolho.uberminer.items.RangeModifier;
+import harystolho.uberminer.items.SpeedModifier;
 import net.minecraft.item.Item;
 
 public class ItemInit {

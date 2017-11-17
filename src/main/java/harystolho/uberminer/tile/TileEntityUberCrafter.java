@@ -1,22 +1,13 @@
 package harystolho.uberminer.tile;
 
 import harystolho.uberminer.inventory.ContainerUberCrafter;
-import harystolho.uberminer.objects.items.BowUber;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.SlotFurnaceFuel;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.tileentity.TileEntityLockable;
-import net.minecraft.tileentity.TileEntityLockableLoot;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.datafix.DataFixer;
@@ -131,15 +122,15 @@ public class TileEntityUberCrafter extends TileEntityLockable implements ITickab
 				if (!getStackInSlot(2).isEmpty()) {
 					ItemStack item3 = getStackInSlot(2);
 					if (nbt.getString("ToolModifiers").equals("---")) {
-						System.out.print(item3.getUnlocalizedName());
 						if (item3.getUnlocalizedName().equals("item.speed_modifier")) {
 							item3.setCount(item3.getCount() - 1);
 							nbt.setString("ToolModifiers", "ExtraSpeed");
 						} else if (item3.getUnlocalizedName().equals("item.range_modifier")) {
 							item3.setCount(item3.getCount() - 1);
 							nbt.setString("ToolModifiers", "ExtraRange");
+							nbt.setInteger("ToolRadius", nbt.getInteger("ToolRadius") + 1);
 						}
-						
+
 					}
 				}
 			}
@@ -190,7 +181,7 @@ public class TileEntityUberCrafter extends TileEntityLockable implements ITickab
 
 	@Override
 	public void openInventory(EntityPlayer player) {
-		
+
 	}
 
 	@Override
@@ -205,8 +196,22 @@ public class TileEntityUberCrafter extends TileEntityLockable implements ITickab
 			} else {
 				return false;
 			}
+		}
+		if (index == 0) {
+			if (stack.getUnlocalizedName().equals("item.redstone")) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		if (index == 2) {
+			if (stack.getUnlocalizedName().equals("item.range_modifier") || stack.getUnlocalizedName().equals("item.speed_modifier")) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			return true;
+			return false;
 		}
 	}
 

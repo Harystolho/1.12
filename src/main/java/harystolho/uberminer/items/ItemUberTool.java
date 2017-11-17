@@ -1,4 +1,4 @@
-package harystolho.uberminer.objects.items;
+package harystolho.uberminer.items;
 
 import harystolho.uberminer.Main;
 import harystolho.uberminer.init.ItemInit;
