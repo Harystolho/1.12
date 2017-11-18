@@ -31,7 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockUberTable extends Block implements IHasModel {
 
 	public BlockUberTable(String name) {
-		super(Material.IRON);
+		super(Material.ANVIL);
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setHardness(2.0F);

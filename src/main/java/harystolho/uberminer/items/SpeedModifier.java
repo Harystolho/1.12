@@ -32,7 +32,7 @@ public class SpeedModifier extends Item implements IHasModel{
 
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("MaxSpeed +1. (Default MaxSpeed = 1)");
+		tooltip.add("+1 MaxSpeed. (Default MaxSpeed = 2)");
 	}
 	
 	

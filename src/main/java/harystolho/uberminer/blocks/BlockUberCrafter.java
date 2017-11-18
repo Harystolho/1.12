@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 public class BlockUberCrafter extends Block implements IHasModel {
 
 	public BlockUberCrafter(String name) {
-		super(Material.IRON);
+		super(Material.ANVIL);
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setHardness(2.0F);
