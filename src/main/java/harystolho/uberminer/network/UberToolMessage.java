@@ -36,20 +36,8 @@ public class UberToolMessage implements IMessage {
 
 	public static class Handler implements IMessageHandler<UberToolMessage, IMessage> {
 		@Override
-		@SideOnly(Side.CLIENT)
 		public IMessage onMessage(final UberToolMessage message, final MessageContext ctx) {
-			Minecraft.getMinecraft().addScheduledTask(new Runnable() {
-				@Override
-				public void run() {
-					if (message.stage != 0.0f && ctx.side == Side.CLIENT) {
-						ItemStack stack = new ItemStack(ItemInit.TOOL_UBER);
-						if(message.player.getHeldItemMainhand().getItem().getUnlocalizedName() == "item.bow_uber") {
-							BowUber bow = (BowUber) stack.getItem();
-							bow.setSpeed(message.stage);
-						}
-					}
-				}
-			});
+
 			return null;
 		}
 	}

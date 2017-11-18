@@ -31,7 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BowUber extends Item implements IHasModel {
 
-	private double speed;
+	private double speed = 1;
 
 	public BowUber(String name) {
 		setUnlocalizedName(name);
@@ -80,7 +80,6 @@ public class BowUber extends Item implements IHasModel {
 			} catch (NullPointerException e) {
 				speed = 1F;
 			}
-			NetworkHandler.INSTANCE.sendTo(new UberToolMessage(speed, playerIn), (EntityPlayerMP) playerIn);
 		}
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
@@ -121,6 +120,7 @@ public class BowUber extends Item implements IHasModel {
 						}
 					}
 				}
+				stack.setItemDamage(stack.getItemDamage()-1);
 			}
 		}
 	}
@@ -152,10 +152,6 @@ public class BowUber extends Item implements IHasModel {
 			tooltip.add("Speed: " + String.format("%1$.2f", nbttag_speed));
 			tooltip.add("Modifiers: [" + nbttag_modifier + "]");
 		}
-	}
-
-	public void setSpeed(double speed) {
-		this.speed = speed;
 	}
 
 }
