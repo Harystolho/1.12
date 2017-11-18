@@ -11,12 +11,12 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class NetworkHandler {
 
-	static SimpleNetworkWrapper INSTANCE;
+	public static SimpleNetworkWrapper INSTANCE;
 	
-	public void init() {
+	public static void init() {
 		INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MODID);
 		
-	//	INSTANCE.registerMessage(MessageUberTool.Handler.class, MessageUberTool.class, 0, Side.SERVER);
+		INSTANCE.registerMessage(UberToolMessage.Handler.class, UberToolMessage.class, 0, Side.CLIENT);
 	}
 	
 

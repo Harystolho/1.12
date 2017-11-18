@@ -6,13 +6,15 @@ import javax.annotation.Nullable;
 
 import harystolho.uberminer.Main;
 import harystolho.uberminer.init.ItemInit;
+import harystolho.uberminer.network.NetworkHandler;
+import harystolho.uberminer.network.UberToolMessage;
 import harystolho.uberminer.utils.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
@@ -78,6 +80,7 @@ public class BowUber extends Item implements IHasModel {
 			} catch (NullPointerException e) {
 				speed = 1F;
 			}
+			NetworkHandler.INSTANCE.sendTo(new UberToolMessage(speed, playerIn), (EntityPlayerMP) playerIn);
 		}
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
@@ -149,6 +152,10 @@ public class BowUber extends Item implements IHasModel {
 			tooltip.add("Speed: " + String.format("%1$.2f", nbttag_speed));
 			tooltip.add("Modifiers: [" + nbttag_modifier + "]");
 		}
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 
 }

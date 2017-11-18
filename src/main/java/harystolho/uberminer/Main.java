@@ -3,6 +3,7 @@ package harystolho.uberminer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import harystolho.uberminer.network.NetworkHandler;
 import harystolho.uberminer.proxy.CommonProxy;
 import harystolho.uberminer.utils.GuiProxy;
 import harystolho.uberminer.utils.Reference;
@@ -34,6 +35,7 @@ public class Main {
 	@EventHandler
 	public static void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new RegistryHandlers());
+		NetworkHandler.init();
 	}
 	@EventHandler
 	public static void init(FMLInitializationEvent event) {
