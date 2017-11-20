@@ -11,7 +11,7 @@ public class BlockCrafting {
 	public static void init() {
 		
 		RecipeHelper.addOldShaped(new ItemStack(BlockInit.BLOCK_UBER_CRAFTER), " A ", "ABA", " A ",
-				'A',	new ItemStack(Blocks.DIAMOND_BLOCK),
+				'A',	new ItemStack(Blocks.IRON_BLOCK),
 				'B',	new ItemStack(Blocks.EMERALD_BLOCK));
 		
 		RecipeHelper.addOldShaped(new ItemStack(BlockInit.BLOCK_UBER_TABLE), "AAA", "ABA", "AAA",

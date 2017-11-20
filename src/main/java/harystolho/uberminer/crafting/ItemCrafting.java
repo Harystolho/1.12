@@ -24,6 +24,14 @@ public class ItemCrafting {
 				'B',	new ItemStack(Blocks.REDSTONE_BLOCK),
 				'C',	new ItemStack(Blocks.EMERALD_BLOCK));
 		
+		RecipeHelper.addOldShaped(new ItemStack(ItemInit.POWDER_UBER, 4), " B ", "BCB", " B ",
+				'B',	new ItemStack(Items.GUNPOWDER),
+				'C',	new ItemStack(Items.FIRE_CHARGE));
+		
+		RecipeHelper.addOldShaped(new ItemStack(ItemInit.POWDER_UBER_2, 1), " B ", "BCB", " B ",
+				'B',	new ItemStack(Items.BLAZE_POWDER),
+				'C',	new ItemStack(ItemInit.POWDER_UBER));
+		
 	}
 
 }

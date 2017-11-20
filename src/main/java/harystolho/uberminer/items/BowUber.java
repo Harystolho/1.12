@@ -28,6 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class BowUber extends Item implements IHasModel {
 
@@ -126,10 +127,11 @@ public class BowUber extends Item implements IHasModel {
 	}
 
 	public boolean isOre(Block block) {
-		if (block.getRegistryName().toString().toLowerCase().contains("ore")
-				|| block.getUnlocalizedName().toString().toLowerCase().contains("ore")) {
+		if (block.getUnlocalizedName().toString().toLowerCase().contains("ore") || block.getLocalizedName().toString().toLowerCase().contains("ore")) {
+			System.out.println(block.getLocalizedName());
 			return true;
 		}
+		
 		return false;
 	}
 

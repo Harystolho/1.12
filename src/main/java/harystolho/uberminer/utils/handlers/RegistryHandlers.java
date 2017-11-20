@@ -5,6 +5,7 @@ import java.util.List;
 
 import harystolho.uberminer.Main;
 import harystolho.uberminer.crafting.InitCrafting;
+import harystolho.uberminer.entity.EntityUberPowder;
 import harystolho.uberminer.init.BlockInit;
 import harystolho.uberminer.init.ItemInit;
 import harystolho.uberminer.tile.TileEntityUberCrafter;
@@ -17,6 +18,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -42,7 +44,7 @@ public class RegistryHandlers {
 	@SubscribeEvent
 	public void onCraftingRegistry(Register<IRecipe> event) {
 		InitCrafting.init();
-		
+
 		for (IRecipe recipe : RECIPES) {
 			event.getRegistry().register(recipe);
 		}
