@@ -115,23 +115,25 @@ public class BowUber extends Item implements IHasModel {
 							if (isOre(iblockstate.getBlock())) {
 								IBlockState stone = Blocks.STONE.getDefaultState();
 								worldIn.setBlockState(blockpos, stone);
-								ItemStack item = new ItemStack(iblockstate.getBlock());
+								ItemStack item = new ItemStack(iblockstate.getBlock(), 1, iblockstate.getBlock().getMetaFromState(iblockstate));
 								entityLiving.entityDropItem(item, 1F);
 							}
 						}
 					}
 				}
-				stack.setItemDamage(stack.getItemDamage()-1);
+				stack.setItemDamage(stack.getItemDamage() - 1);
 			}
 		}
 	}
 
 	public boolean isOre(Block block) {
-		if (block.getUnlocalizedName().toString().toLowerCase().contains("ore") || block.getLocalizedName().toString().toLowerCase().contains("ore")) {
+		if (block.getUnlocalizedName().toString().toLowerCase().contains("ore")
+				|| block.getLocalizedName().toString().toLowerCase().contains("ore")
+				|| block.getLocalizedName().toString().toLowerCase().contains("ic2")) {
 			System.out.println(block.getLocalizedName());
 			return true;
 		}
-		
+
 		return false;
 	}
 
