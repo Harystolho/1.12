@@ -23,6 +23,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -102,6 +103,7 @@ public class BowUber extends Item implements IHasModel {
 
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
+		
 		if (!worldIn.isRemote) {
 			if ((stack.getMaxItemUseDuration() - entityLiving.getItemInUseCount()) / 20.0F * speed > 5.0) {
 				NBTTagCompound tag = stack.getTagCompound();

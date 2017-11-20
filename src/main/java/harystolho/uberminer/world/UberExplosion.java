@@ -113,10 +113,13 @@ public class UberExplosion extends Explosion {
 	}
 
 	public boolean isOre(Block block) {
-		if (block.getRegistryName().toString().toLowerCase().contains("ore")
-				|| block.getUnlocalizedName().toString().toLowerCase().contains("ore")) {
+		if (block.getUnlocalizedName().toString().toLowerCase().contains("ore")
+				|| block.getLocalizedName().toString().toLowerCase().contains("ore")
+				|| block.getLocalizedName().toString().toLowerCase().contains("ic2")) {
+			System.out.println(block.getLocalizedName());
 			return true;
 		}
+
 		return false;
 	}
 
