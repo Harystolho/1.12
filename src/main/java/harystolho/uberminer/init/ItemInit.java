@@ -6,6 +6,7 @@ import java.util.List;
 import harystolho.uberminer.items.BowUber;
 import harystolho.uberminer.items.RangeModifier;
 import harystolho.uberminer.items.SpeedModifier;
+import harystolho.uberminer.items.UberDebugger;
 import harystolho.uberminer.items.UberPowderTier1;
 import harystolho.uberminer.items.UberPowderTier2;
 import net.minecraft.item.Item;
@@ -16,6 +17,7 @@ public class ItemInit {
 	
 	
 	public static final Item TOOL_UBER = new BowUber("bow_uber");
+	public static final Item UBER_DEBUGGER = new UberDebugger("uber_debugger");
 	
 	public static final Item MODIFIER_SPEED = new SpeedModifier("speed_modifier");
 	public static final Item MODIFIER_RANGE = new RangeModifier("range_modifier");

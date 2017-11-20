@@ -1,6 +1,7 @@
 itemGroup.uberminer=UberMiner
 
 item.tool_uber.name=Uber Mining Tool
+item.uber_debugger.name=Uber Debugger
 item.bow_uber.name=UberTool
 item.range_modifier.name=Range Modifier
 item.speed_modifier.name=Speed Modifier
