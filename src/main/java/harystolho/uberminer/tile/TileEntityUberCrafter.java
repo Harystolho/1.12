@@ -107,16 +107,16 @@ public class TileEntityUberCrafter extends TileEntityLockable implements ITickab
 
 				int maxSpeed = 2;
 				if (nbt.getString("ToolModifiers") != null) {
-					if (nbt.getString("ToolModifiers").equals("ExtraSpeed"))
+					if (nbt.getString("ToolModifiers").contains("ExtraSpeed"))
 						if (maxSpeed == 2)
-							maxSpeed++;
+							maxSpeed = 4;
 				}
 
 				if (!getStackInSlot(0).isEmpty()) {
 					if (nbt.getFloat("ToolSpeed") < maxSpeed) {
 						ItemStack item1 = getStackInSlot(0);
 						item1.setCount(item1.getCount() - 1);
-						nbt.setFloat("ToolSpeed", nbt.getFloat("ToolSpeed") + 0.005F);
+						nbt.setFloat("ToolSpeed", nbt.getFloat("ToolSpeed") + 0.0055F);
 					}
 				}
 				if (!getStackInSlot(2).isEmpty()) {
@@ -131,6 +131,20 @@ public class TileEntityUberCrafter extends TileEntityLockable implements ITickab
 							nbt.setInteger("ToolRadius", nbt.getInteger("ToolRadius") + 1);
 						}
 
+					} else {
+						if (item3.getUnlocalizedName().equals("item.speed_modifier")) {
+							if (!nbt.getString("ToolModifiers").contains("ExtraSpeed")) {
+								item3.setCount(item3.getCount() - 1);
+								nbt.setString("ToolModifiers", nbt.getString("ToolModifiers") + " | ExtraSpeed");
+							}
+
+						} else if (item3.getUnlocalizedName().equals("item.range_modifier")) {
+							if (nbt.getInteger("ToolRadius") < 5) {
+								item3.setCount(item3.getCount() - 1);
+								nbt.setInteger("ToolRadius", nbt.getInteger("ToolRadius") + 1);
+								nbt.setString("ToolModifiers", nbt.getString("ToolModifiers") + " | ExtraRange");
+							}
+						}
 					}
 				}
 			}
@@ -205,7 +219,8 @@ public class TileEntityUberCrafter extends TileEntityLockable implements ITickab
 			}
 		}
 		if (index == 2) {
-			if (stack.getUnlocalizedName().equals("item.range_modifier") || stack.getUnlocalizedName().equals("item.speed_modifier")) {
+			if (stack.getUnlocalizedName().equals("item.range_modifier")
+					|| stack.getUnlocalizedName().equals("item.speed_modifier")) {
 				return true;
 			} else {
 				return false;

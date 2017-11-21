@@ -132,7 +132,6 @@ public class BowUber extends Item implements IHasModel {
 		if (block.getUnlocalizedName().toString().toLowerCase().contains("ore")
 				|| block.getLocalizedName().toString().toLowerCase().contains("ore")
 				|| block.getLocalizedName().toString().toLowerCase().contains("ic2")) {
-			System.out.println(block.getLocalizedName());
 			return true;
 		}
 
