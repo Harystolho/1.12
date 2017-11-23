@@ -109,7 +109,7 @@ public class TileEntityUberCrafter extends TileEntityLockable implements ITickab
 				if (nbt.getString("ToolModifiers") != null) {
 					if (nbt.getString("ToolModifiers").contains("ExtraSpeed"))
 						if (maxSpeed == 2)
-							maxSpeed = 4;
+							maxSpeed = 10;
 				}
 
 				if (!getStackInSlot(0).isEmpty()) {
